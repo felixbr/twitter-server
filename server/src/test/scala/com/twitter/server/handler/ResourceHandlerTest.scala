@@ -15,7 +15,7 @@ class ResourceHandlerTest extends FunSuite {
   private[this] def await[T](a: Awaitable[T]): T = Await.result(a, 2.seconds)
 
   private def staticResourceResolver(content: String): PartialFunction[String, InputStream] =
-    PartialFunction(_ => new ByteArrayInputStream(content.getBytes("UTF8")))
+    { case _ => new ByteArrayInputStream(content.getBytes("UTF8")) }
 
   test("404") {
     val handler = new ResourceHandler("/", PartialFunction.empty)
